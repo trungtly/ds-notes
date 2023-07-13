@@ -1,56 +1,63 @@
 # Git notes
 
-## Setup a repo
-
-- Step 1: On `github.com`: create an emtpy repo `test-repo` under your account (here `trungtly`)
-- Step 2: On local machine
+## Simple workflow
+- On `github`: create a new repo under your account or use an existing repo
+- On local:
 ```bash
-git init test-repo
-cd test-repo
-echo "# test-repo" >> README.md
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/trungtly/test-repo.git
-git push -u origin main
-```
+# Step 0: Clone an existing remote repo (first time only) or pull latest changes 
+git clone https://github.com/user-name/project-name.git
+cd project-name
 
-## Developing
-
-```bash
-# clone the remote repo (first time only) or pull latest changes to local 
-git clone https://github.com/trungtly/test-repo.git .
+# Step 1: Create a feature branch, make some changes
+git checkout main
 git pull
-
-# create a new branch, make some changes
 git checkout -b feat_branch
-git branch
-echo "#### more testing" >> README.md
-git add .
+echo "more testing" >> testing.txt
+git add testing.txt
 git status
 git commit -m "more testing"
 
-# push the changes (`--set-upstream` only for the first time)
+# Step 3: Push the changes (--set-upstream first time only)
 git push --set-upstream origin feat_branch
 git push
 
-# Create a Pull Request (PR) to merge to another branch (eg `main`)
-# Once the PR is approved and merged, the `main` branch (remote only) is updated with our changes
-# need to pull those changes to local
+# Step 3: On github: Create a Pull Request (PR) to merge to another branch (eg main)
+# Once the PR is merged, the main branch (remote only) is updated with our changes. 
+
+# Step 4: Pull those changes to local and clean up the feature branch
 git checkout main
 git pull
+git branch -d feat_branch
+```
+## Useful git commands
+```bash
+# Undo the latest commit
+git commit -m "some wrong change"
+git reset --hard HEAD~1
+git push --force
 
-# Delete a branch once done
-git branch -d feat_branch # local
-git push origin --delete feat_branch
+# Reorder/remove/combine/split commits that are not in main (before push or merge)
+git checkout feat_branch
+git rebase -i origin/main # work in editor
+git push --force
 ```
 
-## Useful git alias
+## Typing less with git alias
 - put the `alias` in your `$HOME/.gitconfig`
 ```bash
 [alias]
-l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
-s = status -s
-# show all alias
-la=!git config -l | grep alias | cut -c 7-
+	# View abbreviated SHA, description, and history graph of the latest 20 commits
+	l = log --pretty=oneline -n 20 --graph --abbrev-commit
+
+	# View the current working tree status using the short format
+	s = status -s
+
+	# Show the diff between the latest commit and the current state
+	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+
+	# Add all changes and commit
+	ac = !git add -A && git commit -av
+
+    # Show all alias
+    la = !git config -l | grep alias | cut -c 7-
 ```
