@@ -44,3 +44,13 @@ git pull
 git branch -d feat_branch # local
 git push origin --delete feat_branch
 ```
+
+## Useful git alias
+- put the `alias` in your `$HOME/.gitconfig`
+```bash
+[alias]
+l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+s = status -s
+# show all alias
+la=!git config -l | grep alias | cut -c 7-
+```
