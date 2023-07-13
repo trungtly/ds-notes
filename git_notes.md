@@ -46,16 +46,16 @@ git push --force
 - put the `alias` in your `$HOME/.gitconfig`
 ```bash
 [alias]
-	# View abbreviated SHA, description, and history graph of the latest 20 commits
-	l = log --pretty=oneline -n 20 --graph --abbrev-commit
+    # View abbreviated SHA, description, and history graph of the latest 20 commits
+    l = log --pretty=oneline -n 20 --graph --abbrev-commit
 
-	# View the current working tree status using the short format
-	s = status -s
+    # View the current working tree status using the short format
+    s = status -s
 
-	# Show the diff between the latest commit and the current state
-	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+    # Show the diff between the latest commit and the current state
+    d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
-	# Add all changes and commit
+    # Add all changes and commit
     ac = !git add -A && git commit -av
 
     # Show all alias
