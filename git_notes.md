@@ -56,7 +56,7 @@ git push --force
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
 	# Add all changes and commit
-	ac = !git add -A && git commit -av
+    ac = !git add -A && git commit -av
 
     # Show all alias
     la = !git config -l | grep alias | cut -c 7-
