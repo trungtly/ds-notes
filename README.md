@@ -1,1 +1,1 @@
-# ds-notes
+# ds-resources
