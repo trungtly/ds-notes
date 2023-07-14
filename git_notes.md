@@ -29,8 +29,11 @@ git checkout main
 git pull
 git branch -d feat_branch
 ```
-## Useful git commands
+## Time travel commands
 ```bash
+# Undo adding a file
+git restore -- some_wrong_file.py
+
 # Undo the latest commit
 git commit -m "some wrong change"
 git reset --hard HEAD~1
